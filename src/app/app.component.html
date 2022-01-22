@@ -1,0 +1,22 @@
+<div id="bounding-box">
+  <h1>Willkommen zum Stilmittel-Roulette!</h1>
+  <div id="content">
+    <div id="roulette-wheel">
+      <canvas style="display: block;" #roulette width="1000" height="1000"></canvas>
+
+    </div>
+    <div id="question">
+      <div *ngIf="showQuestion && selectedOption?.question && displayAnswer">
+        <mat-card>
+          <mat-card-title>{{selectedOption!.question}}</mat-card-title>
+          <mat-divider></mat-divider>
+          <mat-card-content (click)="showAnswer()" style="cursor: pointer; font-weight: 500;">{{displayAnswer}}
+          </mat-card-content>
+        </mat-card>
+        <section>
+          <button mat-raised-button color="primary" (click)="spinWheel()">Neue Frage</button>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

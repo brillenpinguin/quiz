@@ -1,0 +1,45 @@
+@import '@angular/material/prebuilt-themes/purple-green.css';
+
+h1 {
+    font-size: 3em;
+    margin-left: 1.5em;
+}
+
+#bounding-box {
+    padding: 3em;
+}
+
+#content {
+    display: flex;
+    flex-direction: row;
+}
+
+#question {
+    margin-left: 120px;
+    margin-right: 120px;
+    margin-top: 2em;
+    width: 100%;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+button {
+    font-size: 16px;
+}
+ 
+section {
+    margin-top: 1em;
+    margin-left: 1em;
+}
+
+mat-card {
+    display: block;
+    width: 100%;
+    min-height: 300px;
+}
+
+mat-card-content {
+    margin-top: 1.5em;
+}
