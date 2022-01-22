@@ -42,7 +42,6 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.getOptions().subscribe(data => {
-      console.log(`Got option list: ${JSON.stringify(data)}`)
       this.optionList = z.array(z.object({ question: z.string(), answer: z.string() }).strict()).parse(data);
       this.drawRouletteWheel();
     });
@@ -153,14 +152,12 @@ export class AppComponent {
 
     // selected option
     this.selectedOption = this.optionList[Math.floor(mod2Pi(-this.wheelOffset + this.sectorAngle / 2) / this.sectorAngle)]
-    console.log(`Selected option: ${JSON.stringify(this.selectedOption)}`);
   }
 }
 
 function mod2Pi(angle: number) {
   let result = angle;
   while (result < 0) {
-    console.log('debug: while')
     result += 2 * Math.PI;
   }
   return result;
