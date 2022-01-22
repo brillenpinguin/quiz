@@ -87,20 +87,20 @@ export class AppComponent {
 
   public spinWheel() {
     this.reset();
-    const spinningEndTime = Math.random() * this.optionList.length + 4 * 1000;
+    const spinningEndTime = 2.5 * 1000 + Math.random() * 2000;
     this.rotateWheel(spinningEndTime);
   }
 
   private rotateWheel(endTime: number) {
     this.wheelSpeed = 1 - (this.spinningTime) / endTime;
-    this.spinningTime += 30;
+    this.spinningTime += 15;
     if (this.spinningTime > endTime) {
       return this.stopWheel();
     }
     const advanceWheelAngle = this.wheelSpeed * spinningSpeed;
     this.wheelOffset += advanceWheelAngle;
     this.drawRouletteWheel();
-    this.spinningTimeout = setTimeout(() => this.rotateWheel(endTime), 30);
+    this.spinningTimeout = setTimeout(() => this.rotateWheel(endTime), 15);
 
     // selected option
     this.selectedOption = this.optionList[Math.floor(mod2Pi(-this.wheelOffset + this.sectorAngle / 2) / this.sectorAngle)]
