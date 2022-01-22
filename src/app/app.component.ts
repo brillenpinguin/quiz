@@ -8,10 +8,9 @@ import * as z from 'zod';
 // roulette wheel options
 const radius = 450;
 const spinningSpeed = Math.PI / 20;
-const showAnswerDialog = 'Antwort anzeigen';
 const selectorColor = '#db2d16';
 
-type Option = { question: string, answer: string };
+type Option = { question: string, answer: [string, string][] };
 
 @Component({
   selector: 'app-root',
@@ -24,7 +23,7 @@ export class AppComponent {
   public context: CanvasRenderingContext2D | null = null;
   public selectedOption: Option | null = null;
   public showQuestion = true;
-  public displayAnswer = showAnswerDialog;
+  public showAnswer = false;
 
   private sectorAngle = 0;
   private startAngle = 0;
@@ -38,8 +37,9 @@ export class AppComponent {
   rouletteCanvas!: ElementRef<HTMLCanvasElement>
 
   constructor() {
-    // TODO: get dynamically from json file asset instead
-    this.optionList = z.array(z.object({ question: z.string(), answer: z.string() }).strict()).parse(environment.options);
+    this.optionList = z.array(z.object({ question: z.string(), answer: z.record(z.string()) }).strict()).parse(environment.options).map(option => ({
+      ...option, answer: Object.entries(option.answer),
+    }));
     this.selectedOption = this.optionList[0];
   }
 
@@ -67,15 +67,16 @@ export class AppComponent {
     this.context!.stroke();
   }
 
-  private reset() {
-    this.showQuestion = false;
-    this.displayAnswer = showAnswerDialog;
-    this.spinningTime = 0;
-    this.wheelSpeed = 1;
+  public doShowAnswer() {
+    this.showAnswer = true;
+    console.log(`show answer is now ${this.showAnswer}`);
   }
 
-  public showAnswer() {
-    this.displayAnswer = this.selectedOption?.answer ?? showAnswerDialog;
+  private reset() {
+    this.showQuestion = false;
+    this.showAnswer = false;
+    this.spinningTime = 0;
+    this.wheelSpeed = 1;
   }
 
   public spinWheel() {
@@ -129,9 +130,10 @@ export class AppComponent {
       this.drawSegmentLine(angle + this.wheelOffset);
       this.context!.save();
       // segment text
+      const segmentText = `${option.question}?`;
       this.context!.translate(midX + (radius / 2) * Math.cos(angle + this.wheelOffset + this.sectorAngle / 2), midY + (radius / 2) * Math.sin(angle + this.wheelOffset + this.sectorAngle / 2));
       this.context!.rotate(angle + this.wheelOffset + this.sectorAngle / 2);
-      this.context!.fillText(option.question, -this.context!.measureText(option.question).width / 2, 10);
+      this.context!.fillText(segmentText, -this.context!.measureText(segmentText).width / 2, 10);
       this.context!.restore();
     });
     // target marker

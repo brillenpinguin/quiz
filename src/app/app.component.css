@@ -2,7 +2,12 @@
 
 h1 {
     font-size: 3em;
-    margin-left: 1.5em;
+    margin-left: 50px;
+}
+
+h2 {
+    font-size: 2em;
+    margin-left: 50px;
 }
 
 #bounding-box {
@@ -12,6 +17,19 @@ h1 {
 #content {
     display: flex;
     flex-direction: row;
+}
+
+#answer-content {
+    font-weight: 500; 
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 1em;
+}
+
+.answer-line {
+    font-weight: 400; 
+    font-size: 20px;
+    margin-bottom: 1em;
 }
 
 #question {
@@ -38,8 +56,4 @@ mat-card {
     display: block;
     width: 100%;
     min-height: 300px;
-}
-
-mat-card-content {
-    margin-top: 1.5em;
 }

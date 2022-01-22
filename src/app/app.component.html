@@ -1,17 +1,24 @@
 <div id="bounding-box">
   <h1>Willkommen zum Stilmittel-Roulette!</h1>
+  <h2> Was ist ein/e...</h2>
   <div id="content">
     <div id="roulette-wheel">
       <canvas style="display: block;" #roulette width="1000" height="1000"></canvas>
 
     </div>
     <div id="question">
-      <div *ngIf="showQuestion && selectedOption?.question && displayAnswer">
+      <div *ngIf="showQuestion && selectedOption?.question && selectedOption?.answer">
         <mat-card>
-          <mat-card-title>{{selectedOption!.question}}</mat-card-title>
+          <mat-card-title>Was ist ein/e {{selectedOption!.question}}?</mat-card-title>
           <mat-divider></mat-divider>
-          <mat-card-content (click)="showAnswer()" style="cursor: pointer; font-weight: 500;">{{displayAnswer}}
-          </mat-card-content>
+          <div id="answer-content" (click)="doShowAnswer()">
+            <mat-card-content *ngIf="showAnswer; else elseBlock">
+              <div *ngFor="let entry of selectedOption!.answer" class="answer-line">
+                <b>{{entry[0]}}:</b> {{entry[1]}}
+              </div>
+            </mat-card-content>
+            <ng-template #elseBlock>Antwort anzeigen</ng-template>
+          </div>
         </mat-card>
         <section>
           <button mat-raised-button color="primary" (click)="spinWheel()">Neue Frage</button>
