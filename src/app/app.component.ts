@@ -1,12 +1,11 @@
 /*
 * Wheel mechanics inspired by https://codepen.io/barney-parker/pen/OPyYqy
 */
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as z from 'zod';
 
 // roulette wheel options
-const radius = 450;
 const spinningSpeed = Math.PI / 20;
 const selectorColor = '#db2d16';
 
@@ -25,6 +24,8 @@ export class AppComponent {
   public showQuestion = true;
   public showAnswer = false;
 
+  private canvasSideLength = () => window.innerHeight - 200;
+  private radius = () => this.canvasSideLength() / 2 - 10;
   private sectorAngle = 0;
   private startAngle = 0;
   private wheelOffset = 0;
@@ -52,18 +53,23 @@ export class AppComponent {
     this.drawRouletteWheel();
   }
 
+  @HostListener('window:resize')
+  onResize() {
+    this.drawRouletteWheel();
+  }
+
   private midX() {
-    return this.rouletteCanvas.nativeElement.width / 2;
+    return this.canvasSideLength() / 2;
   }
 
   private midY() {
-    return this.rouletteCanvas.nativeElement.height / 2;
+    return this.canvasSideLength() / 2;
   }
 
   private drawSegmentLine(angle: number) {
     this.context!.beginPath();
     this.context!.moveTo(this.midX(), this.midY());
-    this.context!.lineTo(this.midX() + radius * Math.cos(angle), this.midY() + radius * Math.sin(angle));
+    this.context!.lineTo(this.midX() + this.radius() * Math.cos(angle), this.midY() + this.radius() * Math.sin(angle));
     this.context!.stroke();
   }
 
@@ -111,6 +117,8 @@ export class AppComponent {
 
   private drawRouletteWheel() {
     // style
+    this.context!.canvas.width = this.canvasSideLength();
+    this.context!.canvas.height = this.canvasSideLength();
     this.context!.font = '24px Roboto';
 
     // outer circle
@@ -122,7 +130,7 @@ export class AppComponent {
     this.context!.strokeStyle = 'black'
     this.context!.lineWidth = 2;
     this.context!.beginPath();
-    this.context!.arc(midX, midY, radius, this.startAngle, this.startAngle + 2 * Math.PI);
+    this.context!.arc(midX, midY, this.radius(), this.startAngle, this.startAngle + 2 * Math.PI);
     this.context!.stroke();
     this.optionList.forEach((option, i) => {
       // line segments
@@ -131,7 +139,7 @@ export class AppComponent {
       this.context!.save();
       // segment text
       const segmentText = `${option.question}?`;
-      this.context!.translate(midX + (radius / 2) * Math.cos(angle + this.wheelOffset + this.sectorAngle / 2), midY + (radius / 2) * Math.sin(angle + this.wheelOffset + this.sectorAngle / 2));
+      this.context!.translate(midX + (this.radius() / 2) * Math.cos(angle + this.wheelOffset + this.sectorAngle / 2), midY + (this.radius() / 2) * Math.sin(angle + this.wheelOffset + this.sectorAngle / 2));
       this.context!.rotate(angle + this.wheelOffset + this.sectorAngle / 2);
       this.context!.fillText(segmentText, -this.context!.measureText(segmentText).width / 2, 10);
       this.context!.restore();
@@ -141,7 +149,7 @@ export class AppComponent {
     this.context!.strokeStyle = selectorColor;
     this.context!.lineWidth = 4;
     this.context!.beginPath();
-    this.context!.arc(midX, midY, radius, - this.sectorAngle / 2, - this.sectorAngle / 2 + this.sectorAngle);
+    this.context!.arc(midX, midY, this.radius(), - this.sectorAngle / 2, - this.sectorAngle / 2 + this.sectorAngle);
     this.context!.stroke();
     this.drawSegmentLine(- this.sectorAngle / 2);
     this.drawSegmentLine(- this.sectorAngle / 2 + this.sectorAngle);
