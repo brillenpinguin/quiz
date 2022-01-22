@@ -24,7 +24,7 @@ export class AppComponent {
   public showQuestion = true;
   public showAnswer = false;
 
-  private canvasSideLength = () => window.innerHeight - 200;
+  private canvasSideLength = () => Math.max(window.innerHeight - 200, 600);
   private radius = () => this.canvasSideLength() / 2 - 10;
   private sectorAngle = 0;
   private startAngle = 0;
