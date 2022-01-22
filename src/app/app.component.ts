@@ -1,8 +1,8 @@
 /*
 * Wheel mechanics inspired by https://codepen.io/barney-parker/pen/OPyYqy
 */
-import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import * as z from 'zod';
 
 // roulette wheel options
@@ -37,14 +37,10 @@ export class AppComponent {
   @ViewChild('roulette', { static: false })
   rouletteCanvas!: ElementRef<HTMLCanvasElement>
 
-  constructor(private http: HttpClient) { }
-
-
-  ngOnInit(): void {
-    this.getOptions().subscribe(data => {
-      this.optionList = z.array(z.object({ question: z.string(), answer: z.string() }).strict()).parse(data);
-      this.drawRouletteWheel();
-    });
+  constructor() {
+    // TODO: get dynamically from json file asset instead
+    this.optionList = z.array(z.object({ question: z.string(), answer: z.string() }).strict()).parse(environment.options);
+    this.selectedOption = this.optionList[0];
   }
 
   ngAfterViewInit(): void {
@@ -54,10 +50,6 @@ export class AppComponent {
 
   ngOnChanges(): void {
     this.drawRouletteWheel();
-  }
-
-  private getOptions() {
-    return this.http.get('assets/options.json');
   }
 
   private midX() {
@@ -102,6 +94,9 @@ export class AppComponent {
     this.wheelOffset += advanceWheelAngle;
     this.drawRouletteWheel();
     this.spinningTimeout = setTimeout(() => this.rotateWheel(endTime), 30);
+
+    // selected option
+    this.selectedOption = this.optionList[Math.floor(mod2Pi(-this.wheelOffset + this.sectorAngle / 2) / this.sectorAngle)]
   }
 
   private stopWheel() {
@@ -149,9 +144,6 @@ export class AppComponent {
     this.drawSegmentLine(- this.sectorAngle / 2);
     this.drawSegmentLine(- this.sectorAngle / 2 + this.sectorAngle);
     this.context!.restore();
-
-    // selected option
-    this.selectedOption = this.optionList[Math.floor(mod2Pi(-this.wheelOffset + this.sectorAngle / 2) / this.sectorAngle)]
   }
 }
 
