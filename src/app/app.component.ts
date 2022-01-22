@@ -58,7 +58,7 @@ export class AppComponent {
   }
 
   private getOptions() {
-    return this.http.get('../assets/options.json');
+    return this.http.get('assets/options.json');
   }
 
   private midX() {
