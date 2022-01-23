@@ -9,7 +9,7 @@ import * as z from 'zod';
 const spinningSpeed = Math.PI / 20;
 const selectorColor = '#db2d16';
 
-type Option = { question: string, answer: [string, string][] };
+type Option = { question: { term: string, genus: 'm' | 'f' | 'n' }, answer: [string, string][] };
 
 @Component({
   selector: 'app-root',
@@ -38,7 +38,11 @@ export class AppComponent {
   rouletteCanvas!: ElementRef<HTMLCanvasElement>
 
   constructor() {
-    this.optionList = z.array(z.object({ question: z.string(), answer: z.record(z.string()) }).strict()).parse(environment.options).map(option => ({
+    this.optionList = z.array(z.object({
+      question: z.object({
+        term: z.string(), genus: z.enum(['m', 'f', 'n'])
+      }), answer: z.record(z.string())
+    }).strict()).parse(environment.options).map(option => ({
       ...option, answer: Object.entries(option.answer),
     }));
     this.selectedOption = this.optionList[0];
@@ -75,7 +79,19 @@ export class AppComponent {
 
   public doShowAnswer() {
     this.showAnswer = true;
-    console.log(`show answer is now ${this.showAnswer}`);
+  }
+
+  public getArticle(genus: 'm' | 'f' | 'n'): string {
+    switch (genus) {
+      case 'm':
+        return 'ein';
+      case 'f':
+        return 'eine';
+      case 'n':
+        return 'ein';
+      default:
+        throw new Error(`Invalid genus ${genus}`);
+    }
   }
 
   private reset() {
@@ -138,7 +154,7 @@ export class AppComponent {
       this.drawSegmentLine(angle + this.wheelOffset);
       this.context!.save();
       // segment text
-      const segmentText = `${option.question}?`;
+      const segmentText = `${option.question.term}?`;
       this.context!.translate(midX + (this.radius() / 2) * Math.cos(angle + this.wheelOffset + this.sectorAngle / 2), midY + (this.radius() / 2) * Math.sin(angle + this.wheelOffset + this.sectorAngle / 2));
       this.context!.rotate(angle + this.wheelOffset + this.sectorAngle / 2);
       this.context!.fillText(segmentText, -this.context!.measureText(segmentText).width / 2, 10);

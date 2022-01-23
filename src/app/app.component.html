@@ -9,10 +9,12 @@
     <div id="question">
       <div *ngIf="showQuestion && selectedOption?.question && selectedOption?.answer">
         <mat-card>
-          <mat-card-title>Was ist ein/e {{selectedOption!.question}}?</mat-card-title>
+          <mat-card-title>Was ist {{getArticle(selectedOption!.question.genus)}} {{selectedOption!.question.term}}?
+          </mat-card-title>
           <mat-divider></mat-divider>
           <div id="answer-content" (click)="doShowAnswer()">
             <mat-card-content *ngIf="showAnswer; else elseBlock">
+              <div class="answer-line"><b>Genus:</b> {{selectedOption!.question.genus}}</div>
               <div *ngFor="let entry of selectedOption!.answer" class="answer-line">
                 <b>{{entry[0]}}:</b> {{entry[1]}}
               </div>

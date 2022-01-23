@@ -2,7 +2,10 @@ export const environment = {
   production: true,
   options: [
     {
-      question: "Alliteration",
+      question: {
+        term: "Alliteration",
+        genus: "f"
+      },
       answer: {
         Definition: "Wiederholung der Anfangsbuchstaben bei aufeinanderfolgenden Wörtern",
         Beispiel: "Heftiger Husten hilft",
@@ -10,7 +13,10 @@ export const environment = {
       },
     },
     {
-      question: "Anapher",
+      question: {
+        term: "Anapher",
+        genus: "f",
+      },
       answer: {
         Definition: "Wiederholung eines Wortes oder einer Wortgruppe am Anfang aufeinanderfolgender Sätze",
         Beispiel: "Das Wasser rauscht, das Wasser schwoll…",
@@ -18,7 +24,10 @@ export const environment = {
       },
     },
     {
-      question: "Antithese",
+      question: {
+        term: "Antithese",
+        genus: "f",
+      },
       answer: {
         Definition: "Gegenüberstellung gegensätzlicher Begriffe und Gedanken",
         Beispiel: "heiß und kalt",
@@ -26,7 +35,10 @@ export const environment = {
       },
     },
     {
-      question: "Asyndeton",
+      question: {
+        term: "Asyndeton",
+        genus: "n",
+      },
       answer: {
         Definition: "Auslassung von Konjunktionen bei der Reihung gleichgeordneten Wörtern, Satzteilen, Sätzen",
         Beispiel: "Er aß, schlief, schnarchte.",
@@ -34,7 +46,10 @@ export const environment = {
       },
     },
     {
-      question: "Chiasmus",
+      question: {
+        term: "Chiasmus",
+        genus: "m",
+      },
       answer: {
         Definition: "Überkreuzstellung von syntaktisch oder semantisch einander entsprechenden Satzgliedern",
         Beispiel: "Die Kunst ist lang, und kurz ist unser Leben",
@@ -42,7 +57,10 @@ export const environment = {
       },
     },
     {
-      question: "Ellipse",
+      question: {
+        term: "Ellipse",
+        genus: "f",
+      },
       answer: {
         Definition: "Unvollständiger Satz; Auslassung von Redeteilen, die leicht zu ergänzen sind",
         Beispiel: "Je schneller, desto besser.",
@@ -50,7 +68,10 @@ export const environment = {
       },
     },
     {
-      question: "Enjambement",
+      question: {
+        term: "Enjambement",
+        genus: "n",
+      },
       answer: {
         Definition: "Zeilensprung: Übergreifen des Satzes eines Verses in den nächsten",
         Beispiel: "",
@@ -58,7 +79,10 @@ export const environment = {
       },
     },
     {
-      question: "Euphemismus",
+      question: {
+        term: "Euphemismus",
+        genus: "m",
+      },
       answer: {
         Definition: "Beschönigung",
         Beispiel: "hinscheiden für sterben",
@@ -66,7 +90,10 @@ export const environment = {
       },
     },
     {
-      question: "Hyperbel",
+      question: {
+        term: "Hyperbel",
+        genus: "f",
+      },
       answer: {
         Definition: "starke Übertreibung",
         Beispiel: "blitzschnell",
@@ -74,7 +101,10 @@ export const environment = {
       },
     },
     {
-      question: "Inversion",
+      question: {
+        term: "Inversion",
+        genus: "f",
+      },
       answer: {
         Definition: "Umkehrung der geläufigen Wortstellung im Satz",
         Beispiel: "Unendlich ist die jugendliche Trauer",
@@ -82,7 +112,10 @@ export const environment = {
       },
     },
     {
-      question: "Klimax",
+      question: {
+        term: "Klimax",
+        genus: "f",
+      },
       answer: {
         Definition: "steigernde Reihung von Wort- oder Satzreihen",
         Beispiel: "Heute back’ ich, morgen brau’ ich, übermorgen hol’ ich der Königin ihr Kind",
@@ -90,7 +123,10 @@ export const environment = {
       },
     },
     {
-      question: "Litotes",
+      question: {
+        term: "Litotes",
+        genus: "f",
+      },
       answer: {
         Definition: "Verneinung des Gegenteils des Gemeinten ",
         Beispiel: "Nicht gerade eine deiner besten Ideen",
@@ -98,7 +134,10 @@ export const environment = {
       },
     },
     {
-      question: "Metapher",
+      question: {
+        term: "Metapher",
+        genus: "f",
+      },
       answer: {
         Definition: "bildhafte Bedeutungsübertragung",
         Beispiel: "Musik ist Nahrung der Liebe",
@@ -106,7 +145,10 @@ export const environment = {
       },
     },
     {
-      question: "Oxymoron",
+      question: {
+        term: "Oxymoron",
+        genus: "n",
+      },
       answer: {
         Definition: "Verbindung zweier Vorstellungen, die sich widersprechen",
         Beispiel: "schwarze Milch der Frühe",
@@ -114,7 +156,10 @@ export const environment = {
       },
     },
     {
-      question: "Parallelismus",
+      question: {
+        term: "Parallelismus",
+        genus: "m",
+      },
       answer: {
         Definition: "Wiederholung gleicher syntaktischer Fügungen",
         Beispiel: "Schnell lief er hin, langsam kam er zurück",
@@ -122,7 +167,10 @@ export const environment = {
       },
     },
     {
-      question: "Personifikation",
+      question: {
+        term: "Personifikation",
+        genus: "f",
+      },
       answer: {
         Definition: "Vermenschlichung",
         Beispiel: "Mutter Erde",
